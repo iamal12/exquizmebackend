@@ -88,7 +88,7 @@ router.put('/:customer', (req, res) => {
     console.log(email);
     console.log(phone);
     console.log(pass);
-    mysqlConnection.query('update customer set email=?, phoneno =?, pass =? where name = ?', [email, phone, pass, name], (error, rows, fields) => {
+    mysqlConnection.query('update customer set email=?, phone =?, pass =? where name = ?', [email, phone, pass, name], (error, rows, fields) => {
         if (!error) {
             res.json({ Status: 'Customer data updated ..!!' });
 
