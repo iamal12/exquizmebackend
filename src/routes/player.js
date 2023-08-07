@@ -4,7 +4,7 @@ const mysqlConnection = require('../database/database');
 
 // Get all players
 router11.get('/players', (req, res) => {
-    mysqlConnection.query('SELECT * FROM Players', (error, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM players', (error, rows, fields) => {
         if (!error) {
             res.json(rows);
         } else {
@@ -17,7 +17,7 @@ router11.get('/players', (req, res) => {
 // Get player by ID
 router11.get('/players/:id', (req, res) => {
     const id = req.params.id;
-    mysqlConnection.query('SELECT * FROM Players WHERE player_id = ?', [id], (error, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM players WHERE player_id = ?', [id], (error, rows, fields) => {
         if (!error) {
             if (rows.length === 0) {
                 res.status(404).json({ error: 'Player not found' });
@@ -35,7 +35,7 @@ router11.get('/players/:id', (req, res) => {
 router11.post('/players', (req, res) => {
     const { name, email, user_id } = req.body;
 
-    mysqlConnection.query('INSERT INTO Players (name, email, user_id) VALUES (?, ?, ?)',
+    mysqlConnection.query('INSERT INTO players (name, email, user_id) VALUES (?, ?, ?)',
         [name, email, user_id],
         (error, result) => {
             if (!error) {
@@ -53,7 +53,7 @@ router11.put('/players/:id', (req, res) => {
     const id = req.params.id;
     const { name, email, user_id } = req.body;
 
-    mysqlConnection.query('UPDATE Players SET name = ?, email = ?, user_id = ? WHERE player_id = ?',
+    mysqlConnection.query('UPDATE players SET name = ?, email = ?, user_id = ? WHERE player_id = ?',
         [name, email, user_id, id],
         (error, result) => {
             if (!error) {
@@ -73,7 +73,7 @@ router11.put('/players/:id', (req, res) => {
 // Delete player by ID
 router11.delete('/players/:id', (req, res) => {
     const id = req.params.id;
-    mysqlConnection.query('DELETE FROM Players WHERE player_id = ?', [id], (error, result) => {
+    mysqlConnection.query('DELETE FROM players WHERE player_id = ?', [id], (error, result) => {
         if (!error) {
             if (result.affectedRows === 0) {
                 res.status(404).json({ error: 'Player not found' });
