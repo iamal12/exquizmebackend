@@ -13,7 +13,7 @@ const quizrooms = require('./routes/quizroom.js');
 const quizroomparticipant = require('./routes/quizroomparticipant.js');
 const playersRouter = require('./routes/player.js');
 const rounds = require('./routes/rounds.js');
-const fixtures = require('./routes/fixtures.js');
+const fixtures = require('./routes/fixture.js');
 // Middlewares
 app.use(express.json());
 app.use(cors());
