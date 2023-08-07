@@ -11,6 +11,7 @@ const employee = require('./routes/employee');
 const tournament = require('./routes/tournament.js');
 const quizrooms = require('./routes/quizroom.js');
 const quizroomparticipant = require('./routes/quizroomparticipant.js');
+const playersRouter = require('./routes/players');
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -26,6 +27,7 @@ app.use('/employee', employee);
 app.use('/tournaments', tournament);
 app.use('/quizrooms', quizrooms);
 app.use('/quizroomparticipants', quizroomparticipant);
+app.use('/api', playersRouter);
 
 // Starting the server
 const port = 3000; // Set your desired port number here
