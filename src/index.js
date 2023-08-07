@@ -13,6 +13,7 @@ const quizrooms = require('./routes/quizroom.js');
 const quizroomparticipant = require('./routes/quizroomparticipant.js');
 const playersRouter = require('./routes/player.js');
 const rounds = require('./routes/rounds.js');
+const fixtures = require('./routes/fixtures.js');
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -30,6 +31,7 @@ app.use('/quizrooms', quizrooms);
 app.use('/quizroomparticipants', quizroomparticipant);
 app.use('/players', playersRouter);
 app.use('/rounds', rounds);
+app.use('/fixtures', fixtures);
 // Starting the server
 const port = 3000; // Set your desired port number here
 app.listen(port, () => {
