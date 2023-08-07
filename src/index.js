@@ -10,6 +10,7 @@ const cart = require('./routes/cart');
 const employee = require('./routes/employee');
 const tournament = require('./routes/tournament.js');
 const quizrooms = require('./routes/quizroom.js');
+const quizroomparticipant = require('./routes/quizroomparticipant.js');
 // Middlewares
 app.use(express.json());
 app.use(cors());
