@@ -23,7 +23,7 @@ app.use('/cart', cart);
 app.use('/employee', employee);
 
 // Starting the server
-const port = 5040; // Set your desired port number here
+const port = 3000; // Set your desired port number here
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
