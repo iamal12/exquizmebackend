@@ -7,7 +7,7 @@ router13.post('/fixtures', (req, res) => {
     const { round_id, player1_id, player2_id, player1_score, player2_score } = req.body;
 
     mysqlConnection.query(
-        'INSERT INTO Fixture (round_id, player1_id, player2_id, player1_score, player2_score) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO fixture (round_id, player1_id, player2_id, player1_score, player2_score) VALUES (?, ?, ?, ?, ?)',
         [round_id, player1_id, player2_id, player1_score, player2_score],
         (error, result) => {
             if (!error) {
@@ -22,7 +22,7 @@ router13.post('/fixtures', (req, res) => {
 
 // Get all fixtures
 router13.get('/fixtures', (req, res) => {
-    mysqlConnection.query('SELECT * FROM Fixture', (error, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM fixture', (error, rows, fields) => {
         if (!error) {
             res.json(rows);
         } else {
@@ -35,7 +35,7 @@ router13.get('/fixtures', (req, res) => {
 // Get fixture by ID
 router13.get('/fixtures/:id', (req, res) => {
     const id = req.params.id;
-    mysqlConnection.query('SELECT * FROM Fixture WHERE fixture_id = ?', [id], (error, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM fixture WHERE fixture_id = ?', [id], (error, rows, fields) => {
         if (!error) {
             if (rows.length === 0) {
                 res.status(404).json({ error: 'Fixture not found' });
@@ -55,7 +55,7 @@ router13.put('/fixtures/:id', (req, res) => {
     const { round_id, player1_id, player2_id, player1_score, player2_score } = req.body;
 
     mysqlConnection.query(
-        'UPDATE Fixture SET round_id=?, player1_id=?, player2_id=?, player1_score=?, player2_score=? WHERE fixture_id=?',
+        'UPDATE fixture SET round_id=?, player1_id=?, player2_id=?, player1_score=?, player2_score=? WHERE fixture_id=?',
         [round_id, player1_id, player2_id, player1_score, player2_score, id],
         (error, result) => {
             if (!error) {
@@ -75,7 +75,7 @@ router13.put('/fixtures/:id', (req, res) => {
 // Delete fixture by ID
 router13.delete('/fixtures/:id', (req, res) => {
     const id = req.params.id;
-    mysqlConnection.query('DELETE FROM Fixture WHERE fixture_id = ?', [id], (error, result) => {
+    mysqlConnection.query('DELETE FROM fixture WHERE fixture_id = ?', [id], (error, result) => {
         if (!error) {
             if (result.affectedRows === 0) {
                 res.status(404).json({ error: 'Fixture not found' });
