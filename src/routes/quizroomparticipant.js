@@ -15,6 +15,23 @@ router10.get('/quizroomparticipants', (req, res) => {
     });
 });
 
+router10.post('/quizroomparticipants', (req, res) => {
+    const { room_id, user_id } = req.body;
+
+    mysqlConnection.query('INSERT INTO quizRoomParticipant (room_id, user_id) VALUES (?, ?)',
+        [room_id, user_id],
+        (error, result) => {
+            if (!error) {
+                res.status(201).json({ message: 'Quiz room participant created successfully', participant_id: result.insertId });
+            } else {
+                console.log(error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        }
+    );
+});
+
+
 // Get quiz room participant by ID
 router10.get('/quizroomparticipants/:id', (req, res) => {
     const id = req.params.id;
