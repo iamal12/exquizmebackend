@@ -1,14 +1,14 @@
 const Router = require('express');
-const router = Router();
+const router8 = Router();
 
 const mysqlConnection = require('../database/database');
 
-router.get('/', (req, res) => {
+router8.get('/', (req, res) => {
     res.status(200).json('Tournament API is working!');
 });
 
 // Get all tournaments
-router.get('/tournaments', (req, res) => {
+router8.get('/tournaments', (req, res) => {
     mysqlConnection.query('SELECT * FROM tournaments', (error, rows, fields) => {
         if (!error) {
             res.json(rows);
@@ -20,7 +20,7 @@ router.get('/tournaments', (req, res) => {
 });
 
 // Get tournament by ID
-router.get('/tournaments/:id', (req, res) => {
+router8.get('/tournaments/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('SELECT * FROM tournaments WHERE tournament_id = ?', [id], (error, rows, fields) => {
         if (!error) {
@@ -37,7 +37,7 @@ router.get('/tournaments/:id', (req, res) => {
 });
 
 // Create a new tournament
-router.post('/tournaments', (req, res) => {
+router8.post('/tournaments', (req, res) => {
     const { title, description, start_time, end_time, status, rounds, max_slots } = req.body;
     const filled_slots = 0; // Initialize filled_slots to 0 for a new tournament
 
@@ -55,7 +55,7 @@ router.post('/tournaments', (req, res) => {
 });
 
 // Delete a tournament by ID
-router.delete('/tournaments/:id', (req, res) => {
+router8.delete('/tournaments/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('DELETE FROM tournaments WHERE tournament_id = ?', [id], (error, result) => {
         if (!error) {
@@ -71,4 +71,4 @@ router.delete('/tournaments/:id', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router8;
