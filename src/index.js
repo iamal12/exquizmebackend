@@ -25,7 +25,7 @@ app.use('/cart', cart);
 app.use('/employee', employee);
 app.use('/tournaments', tournament);
 app.use('/quizrooms', quizrooms);
-app.use('/quizroomparticipant', quizroomparticipant);
+app.use('/quizroomparticipants', quizroomparticipant);
 
 // Starting the server
 const port = 3000; // Set your desired port number here
