@@ -88,7 +88,7 @@ router.put('/:customer', (req, res) => {
     console.log(email);
     console.log(phone);
     console.log(pass);
-    mysqlConnection.query('update customer set custemail=?, custphoneno =?, custpassword =? where custname = ?', [email, phone, pass, name], (error, rows, fields) => {
+    mysqlConnection.query('update customer set email=?, phoneno =?, pass =? where name = ?', [email, phone, pass, name], (error, rows, fields) => {
         if (!error) {
             res.json({ Status: 'Customer data updated ..!!' });
 
@@ -101,7 +101,7 @@ router.put('/:customer', (req, res) => {
 router.delete('/customer', (req, res) => {
     var custid = req.body.custid;
     console.log(custid);
-    mysqlConnection.query('delete from customer where custid =?', [custid], (error, rows, fields) => {
+    mysqlConnection.query('delete from customer where id =?', [custid], (error, rows, fields) => {
         if (!error) {
             res.json({ Status: 'Customer record deleted ...!!' });
         } else {
