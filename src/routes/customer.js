@@ -20,7 +20,7 @@ router.get('/:customer', (req, res) => {
 router.get('/:customer/:custname', (req, res) => {
     var custname = req.params.custname;
     console.log(custname);
-    mysqlConnection.query('select * from customer where custname = ?;',[custname], (error, rows, fields) => {
+    mysqlConnection.query('select * from customer where name = ?;',[custname], (error, rows, fields) => {
         if (!error) {
             res.json(rows);
         } else {
