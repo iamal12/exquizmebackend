@@ -9,6 +9,7 @@ const orderdb = require('./routes/orderdb');
 const cart = require('./routes/cart');
 const employee = require('./routes/employee');
 const tournament = require('./routes/tournament.js');
+const quizrooms = require('./routes/quizroom.js');
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -22,6 +23,7 @@ app.use('/delivery', delivery);
 app.use('/cart', cart);
 app.use('/employee', employee);
 app.use('/tournaments', tournament);
+app.use('/quizrooms', quizrooms);
 
 // Starting the server
 const port = 3000; // Set your desired port number here

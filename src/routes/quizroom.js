@@ -1,9 +1,9 @@
 const Router = require('express');
-const router = Router();
+const router9 = Router();
 const mysqlConnection = require('../database/database');
 
 // Create a new quiz room
-router.post('/quizrooms', (req, res) => {
+router9.post('/quizrooms', (req, res) => {
     const { room_name, creator_id, start_time, end_time, status, max_participants } = req.body;
 
     mysqlConnection.query(
@@ -21,7 +21,7 @@ router.post('/quizrooms', (req, res) => {
 });
 
 // Get all quiz rooms
-router.get('/quizrooms', (req, res) => {
+router9.get('/quizrooms', (req, res) => {
     mysqlConnection.query('SELECT * FROM quizRoom', (error, rows, fields) => {
         if (!error) {
             res.json(rows);
@@ -50,7 +50,7 @@ router.get('/quizrooms/:id', (req, res) => {
 });
 
 // Delete a quiz room by ID
-router.delete('/quizrooms/:id', (req, res) => {
+router9.delete('/quizrooms/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('DELETE FROM quizRoom WHERE room_id = ?', [id], (error, result) => {
         if (!error) {
@@ -67,7 +67,7 @@ router.delete('/quizrooms/:id', (req, res) => {
 });
 
 // Join a quiz room
-router.post('/quizrooms/join', (req, res) => {
+router9.post('/quizrooms/join', (req, res) => {
     const { room_id, user_id } = req.body;
 
     mysqlConnection.query(
@@ -97,7 +97,7 @@ router.post('/quizrooms/join', (req, res) => {
 });
 
 // Get participants of a quiz room
-router.get('/quizrooms/:id/participants', (req, res) => {
+router9.get('/quizrooms/:id/participants', (req, res) => {
     const id = req.params.id;
 
     mysqlConnection.query(
@@ -114,4 +114,4 @@ router.get('/quizrooms/:id/participants', (req, res) => {
     );
 });
 
-module.exports = router;
+module.exports = router9;
