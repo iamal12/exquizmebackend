@@ -11,7 +11,7 @@ const employee = require('./routes/employee');
 const tournament = require('./routes/tournament.js');
 const quizrooms = require('./routes/quizroom.js');
 const quizroomparticipant = require('./routes/quizroomparticipant.js');
-const playersRouter = require('./routes/players.js');
+const playersRouter = require('./routes/player.js');
 // Middlewares
 app.use(express.json());
 app.use(cors());
