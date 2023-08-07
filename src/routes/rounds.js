@@ -6,7 +6,7 @@ const mysqlConnection = require('../database/database');
 router12.post('/rounds', (req, res) => {
     const { tournament_id, round_number } = req.body;
 
-    mysqlConnection.query('INSERT INTO Rounds (tournament_id, round_number, status) VALUES (?, ?, ?)',
+    mysqlConnection.query('INSERT INTO rounds (tournament_id, round_number, status) VALUES (?, ?, ?)',
         [tournament_id, round_number, 'Active'],
         (error, result) => {
             if (!error) {
@@ -23,7 +23,7 @@ router12.post('/rounds', (req, res) => {
 router12.get('/rounds/:tournament_id', (req, res) => {
     const tournament_id = req.params.tournament_id;
 
-    mysqlConnection.query('SELECT * FROM Rounds WHERE tournament_id = ?',
+    mysqlConnection.query('SELECT * FROM rounds WHERE tournament_id = ?',
         [tournament_id],
         (error, rows, fields) => {
             if (!error) {
@@ -41,7 +41,7 @@ router12.put('/rounds/:round_id', (req, res) => {
     const round_id = req.params.round_id;
     const { status } = req.body;
 
-    mysqlConnection.query('UPDATE Rounds SET status = ? WHERE round_id = ?',
+    mysqlConnection.query('UPDATE rounds SET status = ? WHERE round_id = ?',
         [status, round_id],
         (error, result) => {
             if (!error) {
@@ -58,7 +58,7 @@ router12.put('/rounds/:round_id', (req, res) => {
 router12.delete('/rounds/:round_id', (req, res) => {
     const round_id = req.params.round_id;
 
-    mysqlConnection.query('DELETE FROM Rounds WHERE round_id = ?',
+    mysqlConnection.query('DELETE FROM rounds WHERE round_id = ?',
         [round_id],
         (error, result) => {
             if (!error) {
