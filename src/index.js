@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json'); // Path to the generated Swagger JSON
+
 const cors = require('cors');
 const login = require('./routes/login');
 const customer = require('./routes/customer');
@@ -38,6 +41,8 @@ app.use('/fixtures', fixtures);
 app.use('/quiz_battles', randomquizbattle);
 app.use('/onetoquizchallenges', onetoonequizchallenge);
 app.use('/onetoquizresponses', onetoonequizresponses);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // Starting the server
 const port = 3000; // Set your desired port number here
