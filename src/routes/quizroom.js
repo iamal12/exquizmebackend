@@ -3,21 +3,21 @@ const router9 = Router();
 const mysqlConnection = require('../database/database');
 
 // Create a new quiz room
-router9.post('/quizrooms', (req, res) => {
+app.post('/quizrooms', (req, res) => {
     const { room_name, creator_id, start_time, end_time, status, max_participants } = req.body;
 
-    mysqlConnection.query(
-        'INSERT INTO quizroom (room_name, creator_id, start_time, end_time, status, max_participants, current_participants) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [room_name, creator_id, start_time, end_time, status, max_participants, 0], // 0 for initial current_participants
-        (error, result) => {
-            if (!error) {
-                res.status(201).json({ message: 'Quiz room created successfully', room_id: result.insertId });
-            } else {
-                console.log(error);
-                res.status(500).json({ error: 'Internal Server Error' });
-            }
+    // Generate a unique room code
+    const room_code = generateUniqueRoomCode();
+
+    const insertQuery = 'INSERT INTO quizroom (room_name, creator_id, start_time, end_time, status, max_participants, room_code) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    mysqlConnection.query(insertQuery, [room_name, creator_id, start_time, end_time, status, max_participants, room_code], (error, result) => {
+        if (!error) {
+            res.status(201).json({ message: 'Quiz room created successfully', room_id: result.insertId });
+        } else {
+            console.log(error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
-    );
+    });
 });
 
 // Get all quiz rooms
@@ -59,6 +59,24 @@ router9.delete('/quizrooms/:id', (req, res) => {
             } else {
                 res.json({ message: 'Quiz room deleted successfully' });
             }
+        } else {
+            console.log(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+});
+
+// Close a quiz room
+app.put('/quizrooms/:room_id/close', (req, res) => {
+    const room_id = req.params.room_id;
+
+    // Generate a new unique room code or set it to NULL
+    const newRoomCode = generateUniqueRoomCode(); // or newRoomCode = null;
+
+    const updateQuery = 'UPDATE quizroom SET status = "Closed", room_code = ? WHERE room_id = ?';
+    mysqlConnection.query(updateQuery, [newRoomCode, room_id], (error, result) => {
+        if (!error) {
+            res.status(200).json({ message: 'Quiz room closed successfully' });
         } else {
             console.log(error);
             res.status(500).json({ error: 'Internal Server Error' });
