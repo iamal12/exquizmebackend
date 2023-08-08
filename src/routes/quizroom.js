@@ -3,7 +3,7 @@ const router9 = Router();
 const mysqlConnection = require('../database/database');
 
 // Create a new quiz room
-app.post('/quizrooms', (req, res) => {
+router9.post('/quizrooms', (req, res) => {
     const { room_name, creator_id, start_time, end_time, status, max_participants } = req.body;
 
     // Generate a unique room code
