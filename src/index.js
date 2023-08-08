@@ -45,7 +45,8 @@ app.use('/onetoquizresponses', onetoonequizresponses);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Starting the server
-const port = process.env.PORT || 3000; // Set your desired port number here
-app.listen(port, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });
+
