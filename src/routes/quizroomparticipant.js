@@ -1,9 +1,16 @@
 const Router = require('express');
 const router10 = Router();
-
 const mysqlConnection = require('../database/database');
 
-// Get all quiz room participants
+/**
+ * @swagger
+ * /quizroomparticipants:
+ *   get:
+ *     summary: Get all quiz room participants.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved quiz room participants.
+ */
 router10.get('/quizroomparticipants', (req, res) => {
     mysqlConnection.query('SELECT * FROM quizRoomParticipant', (error, rows, fields) => {
         if (!error) {
@@ -15,6 +22,29 @@ router10.get('/quizroomparticipants', (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /quizroomparticipants:
+ *   post:
+ *     summary: Create a new quiz room participant.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               room_id:
+ *                 type: integer
+ *               user_id:
+ *                 type: integer
+ *             required:
+ *               - room_id
+ *               - user_id
+ *     responses:
+ *       201:
+ *         description: Quiz room participant created successfully.
+ */
 router10.post('/quizroomparticipants', (req, res) => {
     const { room_id, user_id } = req.body;
 
@@ -31,8 +61,24 @@ router10.post('/quizroomparticipants', (req, res) => {
     );
 });
 
-
-// Get quiz room participant by ID
+/**
+ * @swagger
+ * /quizroomparticipants/{id}:
+ *   get:
+ *     summary: Get a quiz room participant by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz room participant ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved quiz room participant.
+ *       404:
+ *         description: Quiz room participant not found.
+ */
 router10.get('/quizroomparticipants/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('SELECT * FROM quizRoomParticipant WHERE participant_id = ?', [id], (error, rows, fields) => {
@@ -49,7 +95,38 @@ router10.get('/quizroomparticipants/:id', (req, res) => {
     });
 });
 
-// Edit quiz room participant
+/**
+ * @swagger
+ * /quizroomparticipants/{id}:
+ *   put:
+ *     summary: Edit a quiz room participant.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz room participant ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               room_id:
+ *                 type: integer
+ *               user_id:
+ *                 type: integer
+ *             required:
+ *               - room_id
+ *               - user_id
+ *     responses:
+ *       200:
+ *         description: Quiz room participant updated successfully.
+ *       404:
+ *         description: Quiz room participant not found.
+ */
 router10.put('/quizroomparticipants/:id', (req, res) => {
     const id = req.params.id;
     const { room_id, user_id } = req.body;
@@ -71,7 +148,24 @@ router10.put('/quizroomparticipants/:id', (req, res) => {
     );
 });
 
-// Delete quiz room participant by ID
+/**
+ * @swagger
+ * /quizroomparticipants/{id}:
+ *   delete:
+ *     summary: Delete a quiz room participant by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz room participant ID
+ *     responses:
+ *       200:
+ *         description: Quiz room participant deleted successfully.
+ *       404:
+ *         description: Quiz room participant not found.
+ */
 router10.delete('/quizroomparticipants/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query('DELETE FROM quizRoomParticipant WHERE participant_id = ?', [id], (error, result) => {

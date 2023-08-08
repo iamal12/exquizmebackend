@@ -2,7 +2,35 @@ const express = require('express');
 const router16 = express.Router();
 const mysqlConnection = require('../database/database');
 
-// Create a new one-to-one quiz response
+/**
+ * @swagger
+ * /onetoquizresponses:
+ *   post:
+ *     summary: Create a new one-to-one quiz response.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               battle_id:
+ *                 type: integer
+ *               user_id:
+ *                 type: integer
+ *               question_id:
+ *                 type: integer
+ *               selected_option:
+ *                 type: string
+ *             required:
+ *               - battle_id
+ *               - user_id
+ *               - question_id
+ *               - selected_option
+ *     responses:
+ *       201:
+ *         description: One-to-one quiz response created successfully.
+ */
 router16.post('/onetoquizresponses', (req, res) => {
     const { battle_id, user_id, question_id, selected_option } = req.body;
 
@@ -20,7 +48,24 @@ router16.post('/onetoquizresponses', (req, res) => {
     );
 });
 
-// Get a one-to-one quiz response by ID
+/**
+ * @swagger
+ * /onetoquizresponses/{id}:
+ *   get:
+ *     summary: Get a one-to-one quiz response by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: One-to-one quiz response ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved one-to-one quiz response.
+ *       404:
+ *         description: One-to-one quiz response not found.
+ */
 router16.get('/onetoquizresponses/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query(
@@ -41,7 +86,42 @@ router16.get('/onetoquizresponses/:id', (req, res) => {
     );
 });
 
-// Update a one-to-one quiz response
+/**
+ * @swagger
+ * /onetoquizresponses/{id}:
+ *   put:
+ *     summary: Update a one-to-one quiz response.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: One-to-one quiz response ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               battle_id:
+ *                 type: integer
+ *               user_id:
+ *                 type: integer
+ *               question_id:
+ *                 type: integer
+ *               selected_option:
+ *                 type: string
+ *             required:
+ *               - battle_id
+ *               - user_id
+ *               - question_id
+ *               - selected_option
+ *     responses:
+ *       200:
+ *         description: One-to-one quiz response updated successfully.
+ */
 router16.put('/onetoquizresponses/:id', (req, res) => {
     const id = req.params.id;
     const { battle_id, user_id, question_id, selected_option } = req.body;
@@ -60,7 +140,24 @@ router16.put('/onetoquizresponses/:id', (req, res) => {
     );
 });
 
-// Delete a one-to-one quiz response by ID
+/**
+ * @swagger
+ * /onetoquizresponses/{id}:
+ *   delete:
+ *     summary: Delete a one-to-one quiz response by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: One-to-one quiz response ID
+ *     responses:
+ *       200:
+ *         description: One-to-one quiz response deleted successfully.
+ *       404:
+ *         description: One-to-one quiz response not found.
+ */
 router16.delete('/onetoquizresponses/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query(
@@ -81,7 +178,15 @@ router16.delete('/onetoquizresponses/:id', (req, res) => {
     );
 });
 
-// Get all one-to-one quiz responses
+/**
+ * @swagger
+ * /onetoquizresponses:
+ *   get:
+ *     summary: Get all one-to-one quiz responses.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved one-to-one quiz responses.
+ */
 router16.get('/onetoquizresponses', (req, res) => {
     mysqlConnection.query('SELECT * FROM onetoQuizResponses', (error, rows, fields) => {
         if (!error) {

@@ -2,7 +2,29 @@ const express = require('express');
 const router12 = express.Router();
 const mysqlConnection = require('../database/database');
 
-// Create a new round
+/**
+ * @swagger
+ * /rounds:
+ *   post:
+ *     summary: Create a new round.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tournament_id:
+ *                 type: integer
+ *               round_number:
+ *                 type: integer
+ *             required:
+ *               - tournament_id
+ *               - round_number
+ *     responses:
+ *       201:
+ *         description: Round created successfully.
+ */
 router12.post('/rounds', (req, res) => {
     const { tournament_id, round_number } = req.body;
 
@@ -19,7 +41,22 @@ router12.post('/rounds', (req, res) => {
     );
 });
 
-// Get all rounds of a tournament
+/**
+ * @swagger
+ * /rounds/{tournament_id}:
+ *   get:
+ *     summary: Get all rounds of a tournament.
+ *     parameters:
+ *       - in: path
+ *         name: tournament_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Tournament ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved rounds.
+ */
 router12.get('/rounds/:tournament_id', (req, res) => {
     const tournament_id = req.params.tournament_id;
 
@@ -36,7 +73,35 @@ router12.get('/rounds/:tournament_id', (req, res) => {
     );
 });
 
-// Update the status of a round
+/**
+ * @swagger
+ * /rounds/{round_id}:
+ *   put:
+ *     summary: Update the status of a round.
+ *     parameters:
+ *       - in: path
+ *         name: round_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Round ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *             required:
+ *               - status
+ *     responses:
+ *       200:
+ *         description: Round status updated successfully.
+ *       404:
+ *         description: Round not found.
+ */
 router12.put('/rounds/:round_id', (req, res) => {
     const round_id = req.params.round_id;
     const { status } = req.body;
@@ -54,7 +119,24 @@ router12.put('/rounds/:round_id', (req, res) => {
     );
 });
 
-// Delete a round
+/**
+ * @swagger
+ * /rounds/{round_id}:
+ *   delete:
+ *     summary: Delete a round.
+ *     parameters:
+ *       - in: path
+ *         name: round_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Round ID
+ *     responses:
+ *       200:
+ *         description: Round deleted successfully.
+ *       404:
+ *         description: Round not found.
+ */
 router12.delete('/rounds/:round_id', (req, res) => {
     const round_id = req.params.round_id;
 

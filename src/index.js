@@ -1,8 +1,7 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger.json'); // Path to the generated Swagger JSON
 const app = express();
- // Path to the generated Swagger JSON
 
 const cors = require('cors');
 const login = require('./routes/login');
@@ -16,6 +15,7 @@ const fixtures = require('./routes/fixture.js');
 const randomquizbattle = require('./routes/randomquizbattles.js');
 const onetoonequizchallenge = require('./routes/onetoonequizchallenge.js');
 const onetoonequizresponses = require('./routes/onetoonequizresponses.js');
+
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -32,8 +32,17 @@ app.use('/fixtures', fixtures);
 app.use('/quiz_battles', randomquizbattle);
 app.use('/onetoquizchallenges', onetoonequizchallenge);
 app.use('/onetoquizresponses', onetoonequizresponses);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+/**
+ * @swagger
+ * /api-docs:
+ *   get:
+ *     summary: Serve the Swagger UI documentation.
+ *     responses:
+ *       200:
+ *         description: Successfully served the Swagger UI.
+ */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Starting the server
 const port = 3000; // Set your desired port number here

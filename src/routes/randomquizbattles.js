@@ -2,7 +2,32 @@ const express = require('express');
 const router14 = express.Router();
 const mysqlConnection = require('../database/database');
 
-// Create a new random quiz battle
+/**
+ * @swagger
+ * /quiz_battles:
+ *   post:
+ *     summary: Create a new random quiz battle.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category_id:
+ *                 type: integer
+ *               user1_id:
+ *                 type: integer
+ *               user2_id:
+ *                 type: integer
+ *             required:
+ *               - category_id
+ *               - user1_id
+ *               - user2_id
+ *     responses:
+ *       201:
+ *         description: Quiz battle created successfully.
+ */
 router14.post('/quiz_battles', (req, res) => {
     const { category_id, user1_id, user2_id } = req.body;
 
@@ -20,7 +45,24 @@ router14.post('/quiz_battles', (req, res) => {
     );
 });
 
-// Get a quiz battle by ID
+/**
+ * @swagger
+ * /quiz_battles/{id}:
+ *   get:
+ *     summary: Get a quiz battle by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz battle ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved quiz battle.
+ *       404:
+ *         description: Quiz battle not found.
+ */
 router14.get('/quiz_battles/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query(
@@ -41,7 +83,37 @@ router14.get('/quiz_battles/:id', (req, res) => {
     );
 });
 
-// Update the status and winner of a quiz battle
+/**
+ * @swagger
+ * /quiz_battles/{id}:
+ *   put:
+ *     summary: Update the status and winner of a quiz battle.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz battle ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *               winner_id:
+ *                 type: integer
+ *             required:
+ *               - status
+ *     responses:
+ *       200:
+ *         description: Quiz battle updated successfully.
+ *       404:
+ *         description: Quiz battle not found.
+ */
 router14.put('/quiz_battles/:id', (req, res) => {
     const id = req.params.id;
     const { status, winner_id } = req.body;
@@ -60,7 +132,24 @@ router14.put('/quiz_battles/:id', (req, res) => {
     );
 });
 
-// Delete a quiz battle by ID
+/**
+ * @swagger
+ * /quiz_battles/{id}:
+ *   delete:
+ *     summary: Delete a quiz battle by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Quiz battle ID
+ *     responses:
+ *       200:
+ *         description: Quiz battle deleted successfully.
+ *       404:
+ *         description: Quiz battle not found.
+ */
 router14.delete('/quiz_battles/:id', (req, res) => {
     const id = req.params.id;
     mysqlConnection.query(
@@ -81,7 +170,15 @@ router14.delete('/quiz_battles/:id', (req, res) => {
     );
 });
 
-// Get all quiz battles
+/**
+ * @swagger
+ * /quiz_battles:
+ *   get:
+ *     summary: Get all quiz battles.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved quiz battles.
+ */
 router14.get('/quiz_battles', (req, res) => {
     mysqlConnection.query('SELECT * FROM quiz_battles', (error, rows, fields) => {
         if (!error) {
