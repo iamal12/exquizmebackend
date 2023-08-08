@@ -23,7 +23,6 @@ app.use(cors());
 // Routes
 app.use('/login', login);
 app.use('/customer', customer);
-app.use('/cart', cart);
 app.use('/tournaments', tournament);
 app.use('/quizrooms', quizrooms);
 app.use('/quizroomparticipants', quizroomparticipant);
