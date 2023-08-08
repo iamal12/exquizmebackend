@@ -67,7 +67,7 @@ router9.delete('/quizrooms/:id', (req, res) => {
 });
 
 // Close a quiz room
-app.put('/quizrooms/:room_id/close', (req, res) => {
+router9.put('/quizrooms/:room_id/close', (req, res) => {
     const room_id = req.params.room_id;
 
     // Generate a new unique room code or set it to NULL
