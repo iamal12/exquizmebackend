@@ -17,7 +17,7 @@ const onetoonequizchallenge = require('./routes/onetoonequizchallenge.js');
 const onetoonequizresponses = require('./routes/onetoonequizresponses.js');
 
 
-const sequelize = require('./database/database');
+const sequelize = require('./database/initialize');
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -51,6 +51,9 @@ const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });
+
+
+console.log("SEQUELIZE",sequelize);
 
 
 sequelize
