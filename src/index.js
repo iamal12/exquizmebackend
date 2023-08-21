@@ -16,6 +16,8 @@ const randomquizbattle = require('./routes/randomquizbattles.js');
 const onetoonequizchallenge = require('./routes/onetoonequizchallenge.js');
 const onetoonequizresponses = require('./routes/onetoonequizresponses.js');
 
+
+const sequelize = require('./database/database');
 // Middlewares
 app.use(express.json());
 app.use(cors());
@@ -50,3 +52,12 @@ app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });
 
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection to MySQL has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
